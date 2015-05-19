@@ -79,6 +79,17 @@ EOM
     fi
 }
 
+destroyplanet() {
+    if [ "$1" = "help" ]
+    then
+        echo "Distroy a planet (site)"
+        exit;
+    fi
+    cd ~/Desktop/WWW/workspace/public
+    rm -rf $1
+    updatespace
+}
+
 whoisusingport() { lsof -i tcp:$* }
 
 searchphpmodule() { php -m | grep -e"$1" }
@@ -105,6 +116,7 @@ helpme() {
     echo "updatespace:\t" `updatespace help`
     echo "changespace:\t" `changespace help`
     echo "createplanet:\t" `createplanet help`
+    echo "destroyplanet:\t" `destroyplanet help`
     echo "phpfixer:\t" `phpfixer help`
     echo "whoisusingport:"
     echo "searchphpmodule:"
