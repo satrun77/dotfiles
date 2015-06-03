@@ -1,4 +1,8 @@
 
+# Config
+
+MYWORKSPACE=~/Desktop/WWW/workspace
+
 # Path
 
 export PATH=~/bin:/usr/local/bin:/usr/local/mysql/bin:$PATH
@@ -15,7 +19,7 @@ deepspace() {
         echo "SSH into vagrant"
         exit;
     fi
-    cd ~/Desktop/WWW/workspace && vagrant ssh
+    cd $MYWORKSPACE && vagrant ssh
 }
 
 workspace() {
@@ -24,9 +28,9 @@ workspace() {
         echo "Execute vagrant up/down/distory/..."
         exit;
     fi
-    cd ~/Desktop/WWW/workspace
+    cd $MYWORKSPACE
     vagrant ${1-up}
-    osascript -e 'display notification "Workspace " + $1 + " complete!" with title "Workspace"'
+    osascript -e 'display notification "Workspace $1 complete!" with title "Workspace"'
 }
 
 updatespace() {
@@ -35,7 +39,7 @@ updatespace() {
         echo "Execute vagrant provision"
         exit;
     fi
-    cd ~/Desktop/WWW/workspace
+    cd $MYWORKSPACE
     vagrant provision
     osascript -e 'display notification "Workspace provision complete!" with title "Workspace"'
 }
@@ -46,7 +50,7 @@ changespace() {
         echo "Open to edit workspace environment config"
         exit;
     fi
-    vim ~/Desktop/WWW/workspace/config/environment.yaml
+    vim $MYWORKSPACE/config/environment.yaml
 }
 
 createplanet() {
@@ -55,7 +59,7 @@ createplanet() {
         echo "Create a new planet (site) [name] [title]"
         exit;
     fi
-    cd ~/Desktop/WWW/workspace
+    cd $MYWORKSPACE
     DIRECTORY="public/$1"
     if [ ! -d "$DIRECTORY" ]; then
         mkdir public/$1
@@ -85,7 +89,7 @@ destroyplanet() {
         echo "Distroy a planet (site)"
         exit;
     fi
-    cd ~/Desktop/WWW/workspace/public
+    cd $MYWORKSPACE/public
     rm -rf $1
     updatespace
 }
@@ -121,3 +125,4 @@ helpme() {
     echo "whoisusingport:"
     echo "searchphpmodule:"
 }
+
