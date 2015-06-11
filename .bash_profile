@@ -8,15 +8,34 @@ MYWORKSPACE=~/Desktop/WWW/workspace
 export PATH=~/bin:/usr/local/bin:/usr/local/mysql/bin:$PATH
 export PATH=~/.composer/vendor/bin/:$PATH
 
+# Colors
+
+NC='\033[0m' # No Color
+RED='\033[0;31m'
+CYAN="\033[36m"
+BLACK="\033[30m"
+GREEN="\033[32m"
+YELLOW="\033[33m"
+BLUE="\033[34m"
+PINK="\033[35m"
+WHITE="\033[37m"
 
 # Aliases
+
+message() {
+    printf "${1}${2}${NC}\n"
+}
+
+message_error() {
+    printf "${RED}${1}${NC}\n"
+}
 
 alias selen="java -jar ~/selenium-server-standalone.jar"
 
 deepspace() {
     if [ "$1" = "help" ]
     then
-        echo "SSH into vagrant"
+        message ${YELLOW} "SSH into vagrant"
         exit;
     fi
     cd $MYWORKSPACE && vagrant ssh
@@ -25,7 +44,7 @@ deepspace() {
 workspace() {
     if [ "$1" = "help" ]
     then
-        echo "Execute vagrant up/down/distory/..."
+        message ${YELLOW} "Execute vagrant up/down/distory/..."
         exit;
     fi
     cd $MYWORKSPACE
@@ -36,7 +55,7 @@ workspace() {
 updatespace() {
     if [ "$1" = "help" ]
     then
-        echo "Execute vagrant provision"
+        message ${YELLOW} "Execute vagrant provision"
         exit;
     fi
     cd $MYWORKSPACE
@@ -47,7 +66,7 @@ updatespace() {
 changespace() {
     if [ "$1" = "help" ]
     then
-        echo "Open to edit workspace environment config"
+        message ${YELLOW} "Open to edit workspace environment config"
         exit;
     fi
     vim $MYWORKSPACE/config/environment.yaml
@@ -56,7 +75,7 @@ changespace() {
 createplanet() {
     if [ "$1" = "help" ]
     then
-        echo "Create a new planet (site) [name] [title]"
+        message ${YELLOW} "Create a new planet (site) [name] [title]"
         exit;
     fi
     cd $MYWORKSPACE
@@ -77,16 +96,14 @@ $1.dev:
 EOM
         updatespace
     else
-        RED='\033[0;31m'
-        NC='\033[0m' # No Color
-        printf "${RED}Error... directory already exists.${NC}\n"
+        message_error "Error... directory already exists."
     fi
 }
 
 destroyplanet() {
     if [ "$1" = "help" ]
     then
-        echo "Distroy a planet (site)"
+        message ${YELLOW} "Distroy a planet (site)"
         exit;
     fi
     cd $MYWORKSPACE/public
@@ -101,14 +118,14 @@ searchphpmodule() { php -m | grep -e"$1" }
 phpfixer() {
     if [ "$1" = "help" ]
     then
-        echo "Standard php-cs-fixer for OOP projects"
+        message ${YELLOW} "Standard php-cs-fixer for OOP projects"
         exit;
     fi
 
     for var in "$@"
     do
-        echo "\nFixing: $var"
-        echo "------------------------------"
+        message ${CYAN} "Fixing: $var"
+        message ${YELLOW} "------------------------------"
         php-cs-fixer fix $var --fixers=-concat_without_spaces,-phpdoc_no_empty_return,-phpdoc_short_description --verbose
     done
     osascript -e 'display notification "Standard PHP Fixer complete!" with title "PHP fixer"'
@@ -125,4 +142,3 @@ helpme() {
     echo "whoisusingport:"
     echo "searchphpmodule:"
 }
-
