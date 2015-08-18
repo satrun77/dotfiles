@@ -55,7 +55,7 @@ deepspace() {
     if [ "$1" = "help" ]
     then
         message ${YELLOW} "SSH into vagrant"
-        exit;
+        return;
     fi
     cd $MYWORKSPACE && vagrant ssh
 }
@@ -64,7 +64,7 @@ workspace() {
     if [ "$1" = "help" ]
     then
         message ${YELLOW} "Execute vagrant up/down/distory/..."
-        exit;
+        return;
     fi
     cd $MYWORKSPACE
     vagrant ${1-up}
@@ -75,7 +75,7 @@ updatespace() {
     if [ "$1" = "help" ]
     then
         message ${YELLOW} "Execute vagrant provision"
-        exit;
+        return;
     fi
     cd $MYWORKSPACE
     vagrant provision
@@ -86,7 +86,7 @@ changespace() {
     if [ "$1" = "help" ]
     then
         message ${YELLOW} "Open to edit workspace environment config"
-        exit;
+        return;
     fi
     vim $MYWORKSPACE/config/environment.yaml
 }
@@ -95,7 +95,7 @@ createplanet() {
     if [ "$1" = "help" ]
     then
         message ${YELLOW} "Create a new planet (site) [name] [title]"
-        exit;
+        return;
     fi
     cd $MYWORKSPACE
     DIRECTORY="public/$1"
@@ -123,7 +123,7 @@ destroyplanet() {
     if [ "$1" = "help" ]
     then
         message ${YELLOW} "Distroy a planet (site)"
-        exit;
+        return;
     fi
     cd $MYWORKSPACE/public
     rm -rf $1
@@ -138,7 +138,7 @@ phpfixer() {
     if [ "$1" = "help" ]
     then
         message ${YELLOW} "Standard php-cs-fixer for OOP projects"
-        exit;
+        return;
     fi
 
     for var in "$@"
