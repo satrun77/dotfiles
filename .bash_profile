@@ -145,7 +145,7 @@ phpfixer() {
     do
         message ${CYAN} "Fixing: $var"
         message ${YELLOW} "------------------------------"
-        php-cs-fixer fix $var --fixers=-concat_without_spaces,-phpdoc_no_empty_return,-phpdoc_short_description --verbose
+         php-cs-fixer fix $var --fixers=psr0,encoding,short_tag,braces,elseif,eof_ending,function_call_space,function_declaration,indentation,line_after_namespace,linefeed,lowercase_constants,lowercase_keywords,method_argument_space,multiple_use,parenthesis,php_closing_tag,single_line_after_imports,trailing_spaces,visibility,blankline_after_open_tag,double_arrow_multiline_whitespaces,duplicate_semicolon,empty_return,extra_empty_lines,function_typehint_space,include,join_function,multiline_array_trailing_comma,namespace_no_leading_whitespace,phpdoc_inline_tag,phpdoc_indent,phpdoc_inline_tag,phpdoc_no_access,phpdoc_params,phpdoc_scalar,phpdoc_separation,phpdoc_type_to_var,single_quote,align_double_arrow,align_equals,ereg_to_preg --verbose
     done
     osascript -e 'display notification "Standard PHP Fixer complete!" with title "PHP fixer"'
 }
