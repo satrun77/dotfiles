@@ -1,0 +1,12 @@
+[user]
+	email = mohamed.alsharaf@gmail.com
+	name = Mohamed Alsharaf
+[core]
+	excludesfile = ~/.gitignore_global
+[alias]
+  # https://hackernoon.com/lesser-known-git-commands-151a1918a60#.3fu1ls3br
+  please = push --force-with-lease
+  commend = commit --amend --no-edit
+  shorty = status --short --branch
+  gog = log --graph --abbrev-commit --decorate --all --format=format:\"%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(dim white) - %an%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n %C(white)%s%C(reset)\"
+  gog2 = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
