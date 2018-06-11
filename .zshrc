@@ -14,3 +14,4 @@ fpath=(~/.zsh $fpath)
 
 # Customize to your needs...
 source $HOME/.bash_profile
+export PATH="/usr/local/opt/sqlite/bin:$PATH"
