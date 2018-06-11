@@ -3,6 +3,7 @@
 	name = Mohamed Alsharaf
 [core]
 	excludesfile = ~/.gitignore_global
+	compression = 0
 [alias]
   # https://hackernoon.com/lesser-known-git-commands-151a1918a60#.3fu1ls3br
   please = push --force-with-lease
