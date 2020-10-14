@@ -1,4 +1,6 @@
 workspace: /Users/moo/workspace/
+domain: "{name}.mo"
+
 
 #faqs:
 #  source: local
@@ -18,12 +20,17 @@ workspace: /Users/moo/workspace/
 #  source: url
 #  data: http://domain.com/api.json
 
+sites:
+  ip: 127.0.0.1 #IP address to use for list of sites instead of finding one
 commit:
   style: CategorisedStyle # options: ImperativeMoodStyle, CategorisedStyle
   categories:
     Doc: Doc
     Bug: Bug
   words:
+    - Invert
+    - Increase
+    - Refactor
     - Change
     - Add
     - Create
@@ -69,6 +76,7 @@ csfixes:
   "@PSR2": true
   "@PSR1": true
   "@Symfony": true
+  "mb_str_functions": true
   "method_separation": false
   "no_unreachable_default_argument_value": false
   "combine_consecutive_unsets": false
@@ -86,7 +94,7 @@ csfixes:
   "new_with_braces": true
   "no_singleline_whitespace_before_semicolons": true
   "no_unused_imports": true
-  "phpdoc_align": true
+  "phpdoc_align": true  
   "standardize_not_equals": true
   "single_quote": true
   "pre_increment": false
@@ -95,8 +103,10 @@ csfixes:
   "binary_operator_spaces":
       "align_double_arrow": true
       "align_equals": true
-  "concat_space":
-      "spacing": "one"
+  "global_namespace_import":
+      "import_classes": true
+      "import_constants": null
+      "import_functions": null
   "linebreak_after_opening_tag": true
   "no_trailing_comma_in_list_call": false
   "ordered_imports": true
@@ -107,6 +117,14 @@ csfixes:
   "phpdoc_summary": false
   "protected_to_private": false
   "phpdoc_separation": false
-  "blank_line_after_opening_tag": true
   "no_extra_consecutive_blank_lines": false
+  "class_attributes_separation": false
+  "yoda_style": false
+  "increment_style": false
+  "standardize_increment": false
+  "single_trait_insert_per_statement": false
+  "simple_to_complex_string_variable": true
+  "no_superfluous_phpdoc_tags": false
+  "no_extra_blank_lines": false  
+#      "elements": ['const', 'property']
 

@@ -3,7 +3,15 @@
 	name = Mohamed Alsharaf
 [core]
 	excludesfile = ~/.gitignore_global
+    pager = diff-so-fancy | less --tabs=4 -RFX
 	compression = 0
+	editor = sublime -n -w
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
 [alias]
   # https://hackernoon.com/lesser-known-git-commands-151a1918a60#.3fu1ls3br
   please = push --force-with-lease
@@ -11,7 +19,7 @@
   shorty = status --short --branch
   gog = log --graph --abbrev-commit --decorate --all --format=format:\"%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(dim white) - %an%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n %C(white)%s%C(reset)\"
   gog2 = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-
+  lbranch = "!f() { git log --left-right --graph --cherry-pick --oneline  $1...$2; }; f"
   lg = log --pretty=\"format:%Cgreen%H %Cblue%s\" --name-status --grep
   l = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
   pushall= "!f() { git push origin $1 && git push gitlab $1; }; f"
@@ -23,13 +31,38 @@
   fcode = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short -S$1; }; f"
   fcommit = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short -i --grep=$1; }; f"
   work = "!f() { git checkout master && git checkout -b $1; }; f"
+  mm = "!f() { git branch mm -D && git checkout -b mm && git rebase master; }; f"
+  mmm = "!f() { git merge --ff-only mm; }; f"
   permission-reset = "!f() { git diff -p -R --no-color | grep -E '^(diff|(old|new) mode)' --color=never | git apply; }; f"
 [diff]
 	tool = diffmerge
+	renameLimit = 2000
 [difftool "diffmerge"]
-	cmd = diffmerge \"$LOCAL\" \"$REMOTE\"
+	cmd = /usr/local/bin/diffmerge --nosplash \"$LOCAL\" \"$REMOTE\"
 [merge]
 	tool = diffmerge
 [mergetool "diffmerge"]
-	cmd = "diffmerge --merge --result=\"$MERGED\" \"$LOCAL\" \"$(if test -f \"$BASE\"; then echo \"$BASE\"; else echo \"$LOCAL\"; fi)\" \"$REMOTE\""
+	cmd = /usr/local/bin/diffmerge --merge --result=\"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
 	trustExitCode = true
+[color]
+	ui = true
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
+[color "diff"]
+	meta = 11
+	frag = magenta bold
+	commit = yellow bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
+[commit]
+	template = /Users/moo/.stCommitMsg
+[init]
+	defaultBranch = main
+[mergetool]
+	keepBackup = false
+[pull]
+	ff = only

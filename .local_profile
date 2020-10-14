@@ -1,0 +1,159 @@
+export PATH="/usr/local/opt/php@7.2/bin:$PATH"
+export PATH="/usr/local/opt/php@7.2/sbin:$PATH"
+export PATH="~/.npm-global/bin:$PATH"
+export PATH="/usr/local/opt/ruby/bin:$PATH"
+
+if which ruby >/dev/null && which gem >/dev/null; then
+  PATH="$(ruby -r rubygems -e 'puts Gem.user_dir')/bin:$PATH"
+fi
+export COMPOSER_MEMORY_LIMIT=-1 
+
+alias svn=/usr/local/Cellar/subversion/1.9.4/bin/svn
+#alias cat=bat
+alias subl=~/subl
+
+update_php() {
+    brew update
+    brew upgrade php
+}
+
+update_docker_sync() {
+    gem install docker-sync --user-install
+}
+
+docker_re() {
+    #Stop all Docker containers without confirmation (dangerous if running something)
+    docker ps -q | xargs -L1 docker stop
+    #Stop Docker for Mac gracefully
+    test -z "$(docker ps -q 2>/dev/null)" && osascript -e 'quit app "Docker"'
+    #Start Docker gracefully
+    open --background -a Docker
+}
+
+ds_restart(){
+    docker-sync stop
+    docker-sync clean && docker-sync start
+}
+ds_restart_f() {
+    docker-sync stop
+    docker-sync clean && docker-sync start --foreground
+}
+
+gitdate() {
+    GIT_COMMITTER_DATE="$1" git commit --amend
+    git commit --amend --date="$1"
+}
+
+#https://github.com/EugenMayer/docker-sync/blob/master/lib/docker-sync/upgrade_check.rb#L131
+ds_d() {
+    #your-sync-name
+    SYNC_CONTAINER=$1 docker exec "$SYNC_CONTAINER" cat "/tmp/$( echo $( docker exec "$SYNC_CONTAINER" ls /tmp/ | grep ^unison-stdout-- ) )"
+}
+
+ds_debug() {
+    diff -q "$1" <(docker exec "$2" cat "/host_sync/$1")
+    echo "\n------------------------------"
+    diff -q "$1" <(docker exec "$2" cat "/app_sync/$1")
+}
+
+start_docker(){
+    cd /Applications/Docker/Docker\ Quickstart\ Terminal.app/Contents/Resources/Scripts
+    bash 'start.sh'
+    cd ~
+}
+
+hosts() {
+    sudo vim /etc/hosts
+}
+
+start_local() {
+    #ngrok http -region=au 192.168.99.100:$1
+    ngrok start $1
+}
+
+start_v() {
+    ngrok http -region=au 127.0.0.1:$1
+}
+
+export TTC_SAY_BOX='minions'
+
+# List of accounts to read the last tweet from, comma separated
+# The first in the list is read by the party parrot.
+export TTC_BOTS='tinycarebot,selfcare_bot,magicrealismbot'
+
+# List of folders to look into for `git` commits, comma separated.
+export TTC_REPOS='~/workspace/'
+export TTC_REPOS_DEPTH=4
+
+# Location/zip code to check the weather for. Both 90210 and "San Francisco, CA"
+# should be ok. It's using weather.service.msn.com behind the curtains.
+export TTC_WEATHER='Wellington'
+
+# Set to false if you're an imperial savage. <3
+export TTC_CELSIUS=true
+
+# Unset this if you _don't_ want to use Twitter keys and want to
+# use web scraping instead.
+#export TTC_APIKEYS=true
+
+
+# Refresh the dashboard every 20 minutes.
+export TTC_UPDATE_INTERVAL=5
+
+# Twitter api keys
+export CONSUMER_KEY=''
+export CONSUMER_SECRET=''
+export ACCESS_TOKEN=''
+export ACCESS_TOKEN_SECRET=''
+
+git_summary() {
+    tiny-care-terminal
+}
+
+go_to_sleep() {
+    pmset sleepnow
+}
+
+SPACESHIP_PROMPT_ORDER=(
+  time        # Time stamps section (Disabled)
+  user          # Username section
+  dir           # Current directory section
+  host          # Hostname section
+  git           # Git section (git_branch + git_status)
+  #hg            # Mercurial section (hg_branch  + hg_status)
+  package     # Package version (Disabled)
+  node          # Node.js section
+  #ruby          # Ruby section
+  #elixir        # Elixir section
+  # xcode       # Xcode section (Disabled)
+  swift         # Swift section
+  #golang        # Go section
+  php           # PHP section
+  #rust          # Rust section
+  #haskell       # Haskell Stack section
+  # julia       # Julia section (Disabled)
+  docker      # Docker section (Disabled)
+  #aws           # Amazon Web Services section
+  #venv          # virtualenv section
+  #conda         # conda virtualenv section
+  #pyenv         # Pyenv section
+  #dotnet        # .NET section
+  # ember       # Ember.js section (Disabled)
+  #kubecontext   # Kubectl context section
+  #terraform     # Terraform workspace section
+  exec_time     # Execution time
+  line_sep      # Line break
+  battery       # Battery level and status
+  # vi_mode     # Vi-mode indicator (Disabled)
+  jobs          # Background jobs indicator
+  exit_code     # Exit code section
+  char          # Prompt character
+)
+
+SPACESHIP_PROMPT_ADD_NEWLINE=true
+SPACESHIP_PROMPT_FIRST_PREFIX_SHOW=true
+#SPACESHIP_TIME_SHOW=true
+SPACESHIP_DIR_SHOW=true
+SPACESHIP_DIR_TRUNC=9
+SPACESHIP_DIR_TRUNC_REPO=false
+SPACESHIP_DIR_EXPAND_USER_PATH=true

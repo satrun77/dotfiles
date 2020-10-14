@@ -3,4 +3,6 @@
 .DS_Store
 .php_cs.cache
 .idea/
+.env
+.solr/
 .docker-sync/
