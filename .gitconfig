@@ -5,15 +5,15 @@
 	excludesfile = ~/.gitignore_global
     pager = diff-so-fancy | less --tabs=4 -RFX
 	compression = 0
-	editor = sublime -n -w
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
+	editor = subl -n -w
+	pager = diff-so-fancy | less --tabs=4 -RFX
 [mergetool "sourcetree"]
 	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
 [alias]
   # https://hackernoon.com/lesser-known-git-commands-151a1918a60#.3fu1ls3br
+  st = status
+  ch = checkout
   please = push --force-with-lease
   commend = commit --amend --no-edit
   shorty = status --short --branch
@@ -52,7 +52,7 @@
 	newNormal = green bold
 	newHighlight = green bold 22
 [color "diff"]
-	meta = 11
+	meta = yellow
 	frag = magenta bold
 	commit = yellow bold
 	old = red bold
