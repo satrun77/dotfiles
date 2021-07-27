@@ -6,7 +6,7 @@ brew install wget
 brew install php@7.2
 brew install git
 brew install diff-so-fancy
-brew tap caskroom/fonts
+brew tap homebrew/cask-fonts
 brew cask install font-fira-code
 brew install fswatch
 brew install n
