@@ -1,16 +1,19 @@
-export PATH="/usr/local/opt/php@7.2/bin:$PATH"
-export PATH="/usr/local/opt/php@7.2/sbin:$PATH"
+#export PATH="/usr/local/opt/php@7.2/bin:$PATH"
+#export PATH="/usr/local/opt/php@7.2/sbin:$PATH"
 export PATH="~/.npm-global/bin:$PATH"
-export PATH="/usr/local/opt/ruby/bin:$PATH"
+#export PATH="/usr/local/opt/ruby/bin:$PATH"
 
 if which ruby >/dev/null && which gem >/dev/null; then
   PATH="$(ruby -r rubygems -e 'puts Gem.user_dir')/bin:$PATH"
 fi
 export COMPOSER_MEMORY_LIMIT=-1 
 
-alias svn=/usr/local/Cellar/subversion/1.9.4/bin/svn
 #alias cat=bat
 alias subl=~/subl
+
+whoisusingport() { lsof -i tcp:$* }
+
+searchphpmodule() { php -m | grep -e"$1" }
 
 update_php() {
     brew update
@@ -44,6 +47,7 @@ gitdate() {
     git commit --amend --date="$1"
 }
 
+
 #https://github.com/EugenMayer/docker-sync/blob/master/lib/docker-sync/upgrade_check.rb#L131
 ds_d() {
     #your-sync-name
@@ -55,6 +59,7 @@ ds_debug() {
     echo "\n------------------------------"
     diff -q "$1" <(docker exec "$2" cat "/app_sync/$1")
 }
+
 
 start_docker(){
     cd /Applications/Docker/Docker\ Quickstart\ Terminal.app/Contents/Resources/Scripts
@@ -149,6 +154,7 @@ SPACESHIP_PROMPT_ORDER=(
   exit_code     # Exit code section
   char          # Prompt character
 )
+
 
 SPACESHIP_PROMPT_ADD_NEWLINE=true
 SPACESHIP_PROMPT_FIRST_PREFIX_SHOW=true
