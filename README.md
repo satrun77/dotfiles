@@ -46,3 +46,7 @@ install.sh
     - phpize
     - phpdbg
     - phar
+    - cloc
+    - font-fira-code
+    - ngrok
+    - gh 
