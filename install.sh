@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 cd "~"
 #/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 #brew install wget
@@ -24,3 +25,8 @@ git checkout develop
 ./install.sh
 
 mv ~/.git ~/workspace/dotfiles
+
+
+
+➜ mkcert site.mo  localhost 127.0.0.1 ::1
+
